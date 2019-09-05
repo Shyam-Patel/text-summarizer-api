@@ -3,11 +3,13 @@ Web API for the text summarization project written in Python and utilizing the l
 
 ### Setup
 ____
-The following should be installed to run the API locally:
-- Python 3.7 (previous versions are also fine)
+The following were amongst the packages used in the development of this API:
+- Python 3.7
 - Flask 
-- Flask-HTTPAuth
+- Flask-Cors
 - Flask-RESTful
+
+The full list is contained in `requirements.txt`
 
 `$ pip install -r requirements.txt`
 
