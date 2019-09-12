@@ -7,12 +7,14 @@ import Validation
 GensimSummarize_Blueprint = Blueprint('gensim-module', __name__)
 
 
-@GensimSummarize_Blueprint.route("/text")
+@GensimSummarize_Blueprint.route("/text", methods=['POST'])
 def summarize():
-    if(request.is_json != True):
+    if not request.is_json:
         return jsonify("Invalid request")
 
     content = request.get_json()
-    Validation.validate_request(content)
+    if not Validation.validate_request(content):
+        return jsonify("Request does not match defined schema")
 
-    return jsonify("Here is your summary, " + content['user'] + ":\n" + summarize(content['text']))
+    return jsonify("Welcome, " + content['user'])
+    #return jsonify("Here is your summary, " + content['user'] + ":\n" + summarize(content['text']))
