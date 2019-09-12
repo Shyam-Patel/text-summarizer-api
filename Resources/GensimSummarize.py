@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import jsonify
 from flask import request
-from gensim.summarization.summarizer import summarize
+import gensim
 import Validation
 
 GensimSummarize_Blueprint = Blueprint('gensim-module', __name__)
@@ -16,5 +16,4 @@ def summarize():
     if not Validation.validate_request(content):
         return jsonify("Request does not match defined schema")
 
-    return jsonify("Welcome, " + content['user'])
-    #return jsonify("Here is your summary, " + content['user'] + ":\n" + summarize(content['text']))
+    return jsonify("Here is your summary, " + content['user'] + ":  " + gensim.summarization.summarize(content['text']))
