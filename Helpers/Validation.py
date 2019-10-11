@@ -1,17 +1,27 @@
-from jsonschema import validate
+import jsonschema
 from Helpers.APIHelper import api_request_schema
+from Helpers import APIHelper
 
 
-def summary_request(json, must_have_property=None) -> bool:
+def validate_api_text_request(request: object, required_properties: list) -> bool:
+    json_content = APIHelper.fetch_request_json(request)
+
+    if json_content is None: # Ensure a JSON request was posted
+        return False
+
+    if schema_validate(json_content) is False: # Validate the JSON request matches the defined schema/structure
+        return False
+
+    for property_name in required_properties: # Check if the API request contains the needed properties
+        if not property_name in json_content:
+            return False
+
+    return True
+
+
+def schema_validate(json) -> bool:
     try:
-        validate(json, api_request_schema)
-
-        if must_have_property is not None:
-            property_populated = json[must_have_property]
-
-            if not property_populated:  # checks if it's an empty string
-                return False
-
+        jsonschema.validate(json, api_request_schema)
         return True
     except:
         return False

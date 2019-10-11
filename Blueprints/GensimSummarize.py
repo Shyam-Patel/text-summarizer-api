@@ -9,13 +9,10 @@ GensimSummarize_Blueprint = Blueprint('gensim-module', __name__)
 
 @GensimSummarize_Blueprint.route("/text", methods=['POST'])
 def summarize():
-    json_content = API.fetch_request_json(request)
-
-    if json_content is None:
-        return API.api_response(API.failure_code, "Request is not in JSON format")
-
-    if not Validation.summary_request(json=json_content, must_have_property='text'):
+    if not Validation.validate_api_text_request(request, ['text']):
         return API.api_response(API.failure_code, "Request does not match defined schema. Check documentation")
+
+    json_content = request.get_json()
 
     if json_content['ratio']:
         summary = gensim.summarization.summarize(json_content['text'], json_content['ratio'])

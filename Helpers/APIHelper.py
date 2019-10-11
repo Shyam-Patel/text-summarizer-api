@@ -1,8 +1,8 @@
+
+
 # JSON schema of incoming requests
 api_request_schema = {
     "type": "object",
-    "required": [
-    ],
     "properties": {
         "user": {"type": "string"},
         "text": {"type": "string"},
@@ -25,3 +25,7 @@ def fetch_request_json(request) -> object:
 
 def api_response(response_code: int, message: str) -> object:
     return {"status": response_code, "message": message}
+
+
+
+
