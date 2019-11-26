@@ -4,16 +4,15 @@ from Blueprints.GensimSummarize import GensimSummarize_Blueprint
 from Blueprints.SumySummarize import SumySummarize_Blueprint
 
 
-def setup(_app):
+@app.route("/")
+def setup():
+    app = Flask(__name__)
+
     # Enables cross-origin API requests
-    CORS(_app)
+    CORS()
 
     # Register all the blueprints (API endpoints)
     app.register_blueprint(GensimSummarize_Blueprint, url_prefix="/gensim")
     app.register_blueprint(SumySummarize_Blueprint, url_prefix="/sumy")
 
-
-if __name__ == '__main__':
-    app = Flask(__name__)
-    setup(app)
     app.run()
