@@ -3,11 +3,11 @@ from flask_cors import CORS
 from Blueprints.GensimSummarize import GensimSummarize_Blueprint
 from Blueprints.SumySummarize import SumySummarize_Blueprint
 
+app = Flask(__name__)
+
 
 @app.route("/")
 def setup():
-    app = Flask(__name__)
-
     # Enables cross-origin API requests
     CORS(app)
 
