@@ -9,7 +9,7 @@ def setup():
     app = Flask(__name__)
 
     # Enables cross-origin API requests
-    CORS()
+    CORS(app)
 
     # Register all the blueprints (API endpoints)
     app.register_blueprint(GensimSummarize_Blueprint, url_prefix="/gensim")
