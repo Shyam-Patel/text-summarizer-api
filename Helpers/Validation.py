@@ -3,7 +3,7 @@ from Helpers.APIHelper import api_request_schema
 from Helpers import APIHelper
 
 
-def validate_api_text_request(request: object, required_properties: list) -> bool:
+def validate_api_request(request: object, required_properties: list) -> bool:
     json_content = APIHelper.fetch_request_json(request)
 
     if json_content is None: # Ensure a JSON request was posted

@@ -4,7 +4,6 @@
 api_request_schema = {
     "type": "object",
     "properties": {
-        "user": {"type": "string"},
         "text": {"type": "string"},
         "url": {"type": "string"},
         "ratio": {"type": "number"}

@@ -20,17 +20,23 @@ All requests must be in JSON format. Currently, the API will validate the reques
 {<br/>
     "text" : "string", <br/>
     "url" : "string", <br/>
-    "ratio" : "number" //optional<br/>
+    "ratio" : "number" <br/>
 }
 
 - the ratio must be between 0 and 1 ( [percent/100] reduction of the text )
 - you must supply either the text or the url
 
-##### Using the gensim implementation to summarize text:
-`/gensim-summarize/text` <br/>
+#### API Endpoints:
+`/textrank/text` <br/>
 The API request must have the "text" property populated
 
-`/gensim-summarize/url` <br/>
+`/textrank/url` <br/>
+The API request must have the "url" property populated
+
+`/luhn/text` <br/>
+The API request must have the "text" property populated
+
+`/luhn/url` <br/>
 The API request must have the "url" property populated
 
 

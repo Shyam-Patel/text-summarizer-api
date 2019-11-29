@@ -4,12 +4,12 @@ from Helpers import APIHelper as API
 from Helpers import Validation
 import gensim
 
-GensimSummarize_Blueprint = Blueprint('gensim-module', __name__)
+TextRank_Blueprint = Blueprint('textrank-module', __name__)
 
 
-@GensimSummarize_Blueprint.route("/text", methods=['POST'])
+@TextRank_Blueprint.route("/text", methods=['POST'])
 def summarize():
-    if not Validation.validate_api_text_request(request, ['text']):
+    if not Validation.validate_api_request(request, ['text']):
         return API.api_response(API.failure_code, "Request does not match defined schema. Check documentation")
 
     json_content = request.get_json()
