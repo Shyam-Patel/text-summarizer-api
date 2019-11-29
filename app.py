@@ -13,9 +13,6 @@ CORS(app)
 app.register_blueprint(TextRank_Blueprint, url_prefix="/textrank")
 app.register_blueprint(LuhnSummarizer_Blueprint, url_prefix="/luhn")
 
-if __debug__:
-    app.run() #this statement should not run when deployed since it will host the Flask API at a differing URL then what 'gunicorn' uses
-
 
 @app.route('/')
 def index():
