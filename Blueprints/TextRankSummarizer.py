@@ -16,7 +16,6 @@ def text_summarize():
         return API.api_response(API.failure_code, "Request does not match defined schema. Check documentation")
 
     json_content = request.get_json()
-
     summary = gensim.summarization.summarize(text=json_content['text'], ratio=json_content['ratio'])
 
     return API.api_response(API.success_code, summary)

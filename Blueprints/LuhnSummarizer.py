@@ -2,10 +2,7 @@ from flask import Blueprint
 from flask import request
 from Helpers import APIHelper as API
 from Helpers import Validation
-from sumy.summarizers.luhn import LuhnSummarizer
-from sumy.parsers.html import HtmlParser
-from sumy.parsers.plaintext import PlaintextParser
-from sumy.nlp.tokenizers import Tokenizer
+from Helpers import SumyHelper
 
 LuhnSummarizer_Blueprint = Blueprint('luhn-module', __name__)
 
@@ -16,9 +13,7 @@ def text_summarize():
         return API.api_response(API.failure_code, "Request does not match defined schema. Check documentation")
 
     json_content = request.get_json()
-
-    parser = PlaintextParser.from_string(string=json_content['text'], tokenizer=Tokenizer('english'))
-    summary = luhn_summarize(parser=parser, content=json_content['text'], ratio=json_content['ratio'])
+    summary = SumyHelper.get_summary(summarizer_to_use="luhn", content=json_content["text"], content_type="text", ratio=json_content["ratio"])
 
     return API.api_response(response_code=API.success_code, message=summary)
 
@@ -29,21 +24,7 @@ def url_summarize():
         return API.api_response(API.failure_code, "Request does not match defined schema. Check documentation")
 
     json_content = request.get_json()
-
-    parser = HtmlParser.from_url(url=json_content['url'], tokenizer=Tokenizer('english'))
-    text_from_url = ' '.join(str(sentence) for sentence in parser.document.sentences)
-    summary = luhn_summarize(parser=parser, content=text_from_url, ratio=json_content['ratio'])
+    summary = SumyHelper.get_summary(summarizer_to_use="luhn", content=json_content["url"], content_type="url", ratio=json_content["ratio"])
 
     return API.api_response(API.success_code, summary)
 
-
-def luhn_summarize(parser, content, ratio):
-    luhn_summarizer = LuhnSummarizer()
-
-    sentence_count = content.count('.')
-    desired_sentence_count = round(sentence_count * ratio)
-
-    summary_tuple_list = luhn_summarizer(parser.document, desired_sentence_count)
-    summary = ' '.join(str(sentence) for sentence in summary_tuple_list)
-
-    return summary
