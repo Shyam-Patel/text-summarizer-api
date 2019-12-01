@@ -2,9 +2,10 @@ from sumy.nlp.tokenizers import Tokenizer
 from sumy.parsers.html import HtmlParser
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.summarizers.luhn import LuhnSummarizer
+import nltk
 
 LANGUAGE = "english"
-
+nltk.download('punkt')
 
 # These helper methods interfaces with the Sumy library to perform the various summarizations
 def get_summary(summarizer_to_use, content, content_type, ratio):
